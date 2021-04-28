@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardImgOverlay, CardTitle, Breadcrumb, BreadcrumbItem } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { Loading } from './LoadingComponent';
 
 function RenderDirectoryItem ( {campsite} ) {
     return (
@@ -18,7 +19,7 @@ function RenderDirectoryItem ( {campsite} ) {
 
 function Directory(props) {
 
-        const directory = props.campsites.map(campsite => {
+        const directory = props.campsites.campsites.map(campsite => {
             return (
                 <div key={campsite.id} className="col-md-5 m-1">
                     <RenderDirectoryItem campsite={campsite} />
@@ -26,7 +27,15 @@ function Directory(props) {
                 
             );
         })
-
+        if (props.campsites.isLoading) {
+            return (
+                <div className="container">
+                    <div className="col">
+                        <Loading />
+                    </div>
+                </div>
+            );
+        }
         return (
             <div className="container">
                 <div className="row">
