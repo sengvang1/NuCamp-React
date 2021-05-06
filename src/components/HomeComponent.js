@@ -1,26 +1,38 @@
 import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 import { Loading } from './LoadingComponent';
+import { baseUrl } from '../shared/baseUrl';
+import { FadeTransform } from 'react-animation-components';
+
 
 function RenderCard( {item, isLoading, errMess } ) {
+  
     if (isLoading) {
         return <Loading />;
     }
     if (errMess) {
         return <h4>{errMess}</h4>;
     }
+      
     return (
-        <Card>
-            <CardImg src={item.image} alt={item.name} />
-            <CardBody>
-                <CardTitle>{item.name}</CardTitle>
-                <CardText>{item.description}</CardText>
-            </CardBody>
-        </Card>
+        <FadeTransform
+            in
+            transformProps={{
+                exitTransform: 'scale(0.5) translateY(50%)'
+            }}>
+            <Card>
+                <CardImg src={baseUrl + item.image} alt={item.name} />
+                <CardBody>
+                    <CardTitle>{item.name}</CardTitle>
+                    <CardText>{item.description}</CardText>
+                </CardBody>
+            </Card>
+        </FadeTransform>
     )
 }
 
 function Home (props) {
+    // console.log ("promotions props" + props.promotion.image);
     return (
         <div className="container">
             <div className="row">
@@ -30,10 +42,13 @@ function Home (props) {
                     errMess={props.campsitesErrMess} />
                 </div>
                 <div className="col-md m-1">
-                    <RenderCard item={props.promotion} />
+                    {/* <RenderCard item={props.promotion}
+                     /> */}
                 </div>
                 <div className="col-md m-1">
-                    <RenderCard item={props.partner} />
+                    <RenderCard item={props.partner}
+                    isLoading={props.partnersLoading}
+                    errMess={props.partnersErrMess} />
                 </div>
             </div>
         </div>

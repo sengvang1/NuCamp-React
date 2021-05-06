@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import { ConfigureStore } from './redux/configureStore';
 import './App.css';
 
+
 const store = ConfigureStore();
 
 class App extends Component {
@@ -14,6 +15,7 @@ class App extends Component {
           <BrowserRouter>
             <div className="App">
               <Main />
+              
             </div>
           </BrowserRouter>
         </Provider>
